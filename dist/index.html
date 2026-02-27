@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Talks Today</title>
+<style>body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.search-container {
+    margin-bottom: 2rem;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.schedule-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.schedule-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.schedule-time {
+    flex: 0 0 120px;
+    font-weight: bold;
+    color: #007BFF;
+    font-size: 1.1rem;
+}
+
+.talk-details h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+}
+
+.talk-details .speakers {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.talk-details .categories {
+    margin-bottom: 1rem;
+}
+
+.talk-details .category {
+    display: inline-block;
+    background-color: #007BFF;
+    color: #fff;
+    padding: 0.3rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+}
+
+.break-item {
+    background-color: #e9ecef;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 3rem;
+    background-color: #333;
+    color: #fff;
+}
+
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    color: #777;
+}
+</style></head>
+<body>
+    <header>
+        <h1>Tech Talks Today</h1>
+        <p>A one-day virtual conference on the future of technology.</p>
+    </header>
+    <main>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by category (e.g., AI, Web, Cloud)...">
+        </div>
+        <div id="schedule" class="schedule-container"></div>
+    </main>
+    <footer>
+        <p>&copy; 2026 Tech Talks Today</p>
+    </footer>
+
+<script>
+    const talksData = [
+  {
+    "title": "The Future of Artificial Intelligence",
+    "speakers": ["Dr. Evelyn Reed"],
+    "category": ["AI", "Machine Learning"],
+    "duration": 60,
+    "description": "A deep dive into the next generation of AI, exploring advancements in neural networks and their potential impact on society."
+  },
+  {
+    "title": "Modern Web Development with WebAssembly",
+    "speakers": ["Johnathan Carter", "Maria Garcia"],
+    "category": ["Web", "Performance"],
+    "duration": 60,
+    "description": "Learn how WebAssembly is changing the landscape of web development, enabling near-native performance for web applications."
+  },
+  {
+    "title": "Scalable Cloud Architectures",
+    "speakers": ["Anya Sharma"],
+    "category": ["Cloud", "DevOps"],
+    "duration": 60,
+    "description": "An overview of best practices for designing and implementing scalable and resilient cloud-native applications."
+  },
+  {
+    "title": "Quantum Computing: Beyond the Hype",
+    "speakers": ["Dr. Kenji Tanaka"],
+    "category": ["Quantum", "AI"],
+    "duration": 60,
+    "description": "A realistic look at the current state of quantum computing and its practical applications in the coming decade."
+  },
+  {
+    "title": "The Art of UI/UX Design",
+    "speakers": ["Isabella Rossi"],
+    "category": ["Design", "Web"],
+    "duration": 60,
+    "description": "Discover the principles of creating intuitive and beautiful user interfaces that provide a seamless user experience."
+  },
+  {
+    "title": "Cybersecurity in a Connected World",
+    "speakers": ["David Chen", "Laura Evans"],
+    "category": ["Security"],
+    "duration": 60,
+    "description": "Exploring the latest threats and defensive strategies to protect data and privacy in an increasingly interconnected world."
+  }
+]
+;
+    document.addEventListener('DOMContentLoaded', () => {
+    const scheduleContainer = document.getElementById('schedule');
+    const searchInput = document.getElementById('searchInput');
+
+    const formatTime = (date) => {
+        return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    };
+
+    const renderSchedule = (talks) => {
+        scheduleContainer.innerHTML = '';
+        if (talks.length === 0) {
+            scheduleContainer.innerHTML = `<div class="no-results">No talks match your search.</div>`;
+            return;
+        }
+
+        let currentTime = new Date();
+        currentTime.setHours(10, 0, 0, 0); // Event starts at 10:00 AM
+
+        talks.forEach((talk, index) => {
+            const startTime = new Date(currentTime);
+            const endTime = new Date(currentTime.getTime() + talk.duration * 60000);
+
+            const talkElement = document.createElement('div');
+            talkElement.className = 'schedule-item';
+            talkElement.innerHTML = `
+                <div class="schedule-time">
+                    ${formatTime(startTime)} - ${formatTime(endTime)}
+                </div>
+                <div class="talk-details">
+                    <h2>${talk.title}</h2>
+                    <div class="speakers">By: ${talk.speakers.join(', ')}</div>
+                    <div class="categories">
+                        ${talk.category.map(cat => `<span class="category">${cat}</span>`).join('')}
+                    </div>
+                    <p>${talk.description}</p>
+                </div>
+            `;
+            scheduleContainer.appendChild(talkElement);
+
+            currentTime = endTime;
+
+            // Add breaks
+            if (index === 1) { // Lunch break after the 2nd talk
+                const lunchBreakElement = document.createElement('div');
+                lunchBreakElement.className = 'break-item';
+                const lunchEndTime = new Date(currentTime.getTime() + 60 * 60000);
+                lunchBreakElement.textContent = `Lunch Break (${formatTime(currentTime)} - ${formatTime(lunchEndTime)})`;
+                scheduleContainer.appendChild(lunchBreakElement);
+                currentTime = lunchEndTime;
+            } else if (index < talks.length - 1) { // 10-minute break between other talks
+                const breakElement = document.createElement('div');
+                breakElement.className = 'break-item';
+                const breakEndTime = new Date(currentTime.getTime() + 10 * 60000);
+                breakElement.textContent = `Break (${formatTime(currentTime)} - ${formatTime(breakEndTime)})`;
+                scheduleContainer.appendChild(breakElement);
+                currentTime = breakEndTime;
+            }
+        });
+    };
+
+    const filterTalks = (query) => {
+        const lowerCaseQuery = query.toLowerCase().trim();
+        if (!lowerCaseQuery) {
+            return talksData;
+        }
+        return talksData.filter(talk => 
+            talk.category.some(cat => cat.toLowerCase().includes(lowerCaseQuery))
+        );
+    };
+
+    searchInput.addEventListener('input', () => {
+        const filteredTalks = filterTalks(searchInput.value);
+        renderSchedule(filteredTalks);
+    });
+
+    // Initial render
+    renderSchedule(talksData);
+});
+
+</script>
+</body>
+</html>

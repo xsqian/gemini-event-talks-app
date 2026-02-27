@@ -1,0 +1,44 @@
+[
+  {
+    "title": "The Future of Artificial Intelligence",
+    "speakers": ["Dr. Evelyn Reed"],
+    "category": ["AI", "Machine Learning"],
+    "duration": 60,
+    "description": "A deep dive into the next generation of AI, exploring advancements in neural networks and their potential impact on society."
+  },
+  {
+    "title": "Modern Web Development with WebAssembly",
+    "speakers": ["Johnathan Carter", "Maria Garcia"],
+    "category": ["Web", "Performance"],
+    "duration": 60,
+    "description": "Learn how WebAssembly is changing the landscape of web development, enabling near-native performance for web applications."
+  },
+  {
+    "title": "Scalable Cloud Architectures",
+    "speakers": ["Anya Sharma"],
+    "category": ["Cloud", "DevOps"],
+    "duration": 60,
+    "description": "An overview of best practices for designing and implementing scalable and resilient cloud-native applications."
+  },
+  {
+    "title": "Quantum Computing: Beyond the Hype",
+    "speakers": ["Dr. Kenji Tanaka"],
+    "category": ["Quantum", "AI"],
+    "duration": 60,
+    "description": "A realistic look at the current state of quantum computing and its practical applications in the coming decade."
+  },
+  {
+    "title": "The Art of UI/UX Design",
+    "speakers": ["Isabella Rossi"],
+    "category": ["Design", "Web"],
+    "duration": 60,
+    "description": "Discover the principles of creating intuitive and beautiful user interfaces that provide a seamless user experience."
+  },
+  {
+    "title": "Cybersecurity in a Connected World",
+    "speakers": ["David Chen", "Laura Evans"],
+    "category": ["Security"],
+    "duration": 60,
+    "description": "Exploring the latest threats and defensive strategies to protect data and privacy in an increasingly interconnected world."
+  }
+]
